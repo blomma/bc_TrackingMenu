@@ -47,6 +47,18 @@ bcTM_TrackingAbilityToCreatureType = {
 	[BINDING_NAME_BCTM_BINDING_TRACK_UNDEAD] = BINDING_NAME_BCTM_BINDING_TYPE_UNDEAD,
 }
 
+bcTM_TrackingAbilityToTexture = {
+	[BINDING_NAME_BCTM_BINDING_SENSE_DEMONS] = "Interface\\Icons\\Spell_Shadow_Metamorphosis",
+	[BINDING_NAME_BCTM_BINDING_SENSE_UNDEAD] = "Interface\\Icons\\Spell_Holy_SenseUndead",
+	[BINDING_NAME_BCTM_BINDING_TRACK_BEASTS] = "Interface\\Icons\\Ability_Tracking",
+	[BINDING_NAME_BCTM_BINDING_TRACK_DEMONS] = "Interface\\Icons\\Spell_Shadow_SummonFelHunter",
+	[BINDING_NAME_BCTM_BINDING_TRACK_DRAGONKIN] = "Interface\\Icons\\INV_Misc_Head_Dragon_01",
+	[BINDING_NAME_BCTM_BINDING_TRACK_ELEMENTALS] = "Interface\\Icons\\Spell_Frost_SummonWaterElemental",
+	[BINDING_NAME_BCTM_BINDING_TRACK_GIANTS] = "Interface\\Icons\\Ability_Racial_Avatar",
+	[BINDING_NAME_BCTM_BINDING_TRACK_HUMANOIDS] = "Interface\\Icons\\Spell_Holy_PrayerOfHealing",
+	[BINDING_NAME_BCTM_BINDING_TRACK_UNDEAD] = "Interface\\Icons\\Spell_Shadow_DarkSummoning",
+}
+
 
 -- List of tracking abilities to look for.
 bcTM_TrackingAbilities = {
@@ -540,16 +552,24 @@ end
 -- ******************************************************************
 function bcTM_TrackTarget()
 	if not UnitName("target") then
-		bcWrite(SPELL_FAILED_BAD_IMPLICIT_TARGETS);
+		-- bcWrite(SPELL_FAILED_BAD_IMPLICIT_TARGETS);
 		return
 	end
 	local targetType = UnitCreatureType("target")
 	if targetType and bcTM_CreatureTypeToAvailableTrackingAbilities[targetType] then
 		for _, spell in ipairs(bcTM_CreatureTypeToAvailableTrackingAbilities[targetType]) do
-			CastSpellByName(spell)
+			castTrackingIfNeeded(spell)
 		end
 	else
-		bcWrite(SPELL_FAILED_NOT_KNOW);
+		-- bcWrite(SPELL_FAILED_NOT_KNOW);
 		return
+	end
+end
+
+function castTrackingIfNeeded(spellName)
+	local currentIcon = GetTrackingTexture();
+	local newIcon = bcTM_TrackingAbilityToTexture[spellName]
+	if newIcon ~= currentIcon then
+		bcTM_KeyBindingSpellCast(spellName)
 	end
 end
