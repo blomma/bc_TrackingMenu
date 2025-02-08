@@ -1,7 +1,7 @@
 ## Interface: 11200
-## Title: BCUI - Tracking Menu v1.40
-## Title-frFR: BCUI - Menu de Pistage v1.40
-## Title-deDE: BCUI - Tracking Menu v1.40
+## Title: BCUI - Tracking Menu
+## Title-frFR: BCUI - Menu de Pistage
+## Title-deDE: BCUI - Tracking Menu
 ## Notes: Replaces the tracking icon on the minimap with an icon that has a pop-up menu for tracking abilities.
 ## Notes-frFR: Remplace l'icone de pistage de la minicarte avec une icone possedant un menu pour les competences de pistage.
 ## Notes-deDE: Replaces the tracking icon on the minimap with an icon that has a pop-up menu for tracking abilities.
